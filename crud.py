@@ -42,10 +42,23 @@ def create_user(db: Session, request, creator_id: int, hospital_id: int):
     if existing:
         return None
 
+    # get hospital default settings
+    settings = db.query(ChecklistSettings).filter(
+        ChecklistSettings.hospital_id == hospital_id
+    ).first()
+
+    # decide password based on role
+    if request.role == "AT" and settings:
+        password = settings.default_at_password
+    elif request.role == "BMET" and settings:
+        password = settings.default_bmet_password
+    else:
+        password = request.password
+
     new_user = User(
         name=request.name,
         email=request.email,
-        password=request.password,
+        password=password,
         role=request.role,
         employee_id=request.employee_id,
         status=1,

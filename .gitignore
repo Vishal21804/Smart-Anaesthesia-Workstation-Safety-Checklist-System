@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+
+# Environment
+.env
+
+# Uploads / user data
+uploads/
+
+# OS junk
+.DS_Store
+
+# Android / adb junk
+adb.exe
+AdbWinApi.dll
+AdbWinUsbApi.dll
+platform-tools/
+
+# Logs / temp
+*.log
